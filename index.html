@@ -630,7 +630,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
         </div>
       </div>
       <div class="fg"><label>Tell us about your business &amp; goals</label><textarea rows="5" placeholder="What does your business do? What would you love your website to achieve?"></textarea></div>
-      <button class="bp fsub" onclick="showToast()">Send Message ✦</button>
+      <button class="bp fsub" onclick="showToast(); sendMessage()">Send Message ✦</button>
     </div>
   </div>
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
@@ -728,6 +728,21 @@ function resetRes() {
   document.getElementById('gt-form-fields').classList.remove('hidden');
   document.getElementById('gt-conf').classList.remove('show');
 }
+
+async function sendMessage() {
+  const message = document.getElementById("message").value;
+
+  await fetch("/webhook", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message })
+  });
+
+  alert("Message sent ✅");
+}
+  
 </script>
 </body>
 </html>
