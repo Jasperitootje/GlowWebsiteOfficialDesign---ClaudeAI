@@ -2,240 +2,298 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
 <title>GlowWebsite — Your Business in the Spotlight</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:hidden}
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(10,10,10,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,200,66,.11)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:#F5C842;cursor:pointer;letter-spacing:-.5px}
+/* ── RESET & BASE ── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,200,66,.1)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:#F5C842;cursor:pointer;letter-spacing:-.5px;transition:opacity .2s}
+.nav-logo:active{opacity:.7}
 .nav-logo span{color:#fff}
-.nav-ul{display:flex;gap:.35rem;list-style:none}
-.nb{background:none;border:none;color:#888;font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:500;cursor:pointer;padding:.42rem .95rem;border-radius:100px;transition:all .2s}
+.nav-ul{display:flex;gap:.25rem;list-style:none}
+.nb{background:none;border:none;color:#888;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;padding:.42rem .9rem;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap}
 .nb:hover,.nb.on{color:#F5C842;background:rgba(245,200,66,.08)}
 .nb.cta{background:#F5C842!important;color:#0A0A0A!important;font-weight:700!important}
 .nb.cta:hover{background:#C9A020!important}
-/* PAGES */
-.page{display:none}.page.active{display:block}
-/* BUTTONS */
-.bp{background:#F5C842;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;border:none;padding:.82rem 1.7rem;border-radius:100px;cursor:pointer;transition:all .22s}
+/* mobile nav */
+@media(max-width:600px){
+  .nav{padding:.85rem 1.2rem}
+  .nav-logo{font-size:1.2rem}
+  .nav-ul{gap:.15rem}
+  .nb{font-size:.74rem;padding:.38rem .65rem}
+}
+
+/* ── PAGES ── */
+.page{display:none;opacity:0;transition:opacity .45s ease}
+.page.active{display:block}
+.page.fade-in{opacity:1}
+
+/* ── BUTTONS ── */
+.bp{background:#F5C842;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;border:none;padding:.82rem 1.7rem;border-radius:100px;cursor:pointer;transition:background .22s,transform .22s,box-shadow .22s;-webkit-appearance:none}
 .bp:hover{background:#C9A020;transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,200,66,.22)}
-.bo{background:transparent;color:#fff;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;border:1px solid rgba(255,255,255,.2);padding:.82rem 1.7rem;border-radius:100px;cursor:pointer;transition:all .22s}
+.bp:active{transform:translateY(0);box-shadow:none}
+.bo{background:transparent;color:#fff;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;border:1px solid rgba(255,255,255,.22);padding:.82rem 1.7rem;border-radius:100px;cursor:pointer;transition:border-color .22s,color .22s,transform .22s;-webkit-appearance:none}
 .bo:hover{border-color:#F5C842;color:#F5C842;transform:translateY(-2px)}
-/* HERO */
-.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(245,200,66,.06),transparent 70%);pointer-events:none}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,6.2rem);font-weight:900;line-height:.97;letter-spacing:-2px;margin-bottom:.95rem}
+.bo:active{transform:translateY(0)}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.32s}
+
+/* ── HERO ── */
+.hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(245,200,66,.065),transparent 70%);pointer-events:none}
+.hero-wordmark{font-family:'Playfair Display',serif;font-size:clamp(.85rem,2.2vw,1rem);font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:rgba(245,200,66,.7);margin-bottom:1.6rem;opacity:0;transform:translateY(14px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.hero-wordmark.visible{opacity:1;transform:translateY(0)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,8vw,6rem);font-weight:900;line-height:.97;letter-spacing:-2px;opacity:0;transform:translateY(32px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1) .2s,transform 1.1s cubic-bezier(.22,1,.36,1) .2s}
+.hero h1.visible{opacity:1;transform:translateY(0)}
 .hero h1 em{font-style:italic;color:#F5C842}
-.hbtns{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:2.2rem}
-/* ABOUT */
-.about{padding:5.5rem 3rem;max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
-.lbl{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#F5C842;margin-bottom:1rem}
-.about h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.2vw,2.7rem);font-weight:700;line-height:1.15;margin-bottom:1.2rem}
-.about p{color:#aaa;line-height:1.8;font-size:.95rem;margin-bottom:.9rem}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.6rem}
-.stat{background:#161616;border:1px solid rgba(245,200,66,.1);border-radius:13px;padding:1.2rem}
-.stat-n{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#F5C842}
-.stat-l{font-size:.8rem;color:#888;margin-top:.18rem}
-.vis{background:#161616;border:1px solid rgba(245,200,66,.1);border-radius:20px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;font-size:5.5rem;position:relative;overflow:hidden}
-.vis-glow{position:absolute;width:220px;height:220px;background:radial-gradient(circle,rgba(245,200,66,.16),transparent 70%);border-radius:50%}
-.divider{height:1px;background:linear-gradient(to right,transparent,rgba(245,200,66,.18),transparent);max-width:720px;margin:0 auto}
-/* STEPS */
-.steps{padding:5.5rem 3rem;max-width:1020px;margin:0 auto;text-align:center}
-.steps h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.2vw,2.7rem);margin-bottom:.75rem}
-.steps .sub{color:#888;margin-bottom:3.2rem}
-.steps-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2.8rem}
-.step{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:2rem 1.6rem;text-align:left;transition:border-color .3s}
-.step:hover{border-color:rgba(245,200,66,.26)}
-.step-n{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:rgba(245,200,66,.16);line-height:1;margin-bottom:.8rem}
-.step h3{font-size:1rem;font-weight:600;margin-bottom:.45rem}
-.step p{font-size:.85rem;color:#888;line-height:1.68}
-/* PAGE HEADER */
-.ph{padding:4.5rem 3rem 3rem;text-align:center;position:relative;overflow:hidden}
-.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(245,200,66,.055),transparent 70%)}
-.ph .lbl{position:relative}
-.ph h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.2vw,3.8rem);font-weight:900;line-height:1.04;margin-bottom:.8rem;position:relative}
-.ph p{color:#888;font-size:.97rem;max-width:480px;margin:0 auto;position:relative}
-/* BILLING TOGGLE */
-.billing-toggle{display:flex;align-items:center;gap:.7rem;justify-content:center;margin-top:1.4rem}
-.billing-toggle span{font-size:.82rem;color:#666}
+.hero-rule{width:0;height:1px;background:linear-gradient(to right,transparent,rgba(245,200,66,.35),transparent);margin:1.6rem auto;transition:width 1s cubic-bezier(.22,1,.36,1) .7s}
+.hero-rule.visible{width:120px}
+.hbtns{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;opacity:0;transform:translateY(16px);transition:opacity .85s cubic-bezier(.22,1,.36,1) .85s,transform .85s cubic-bezier(.22,1,.36,1) .85s}
+.hbtns.visible{opacity:1;transform:translateY(0)}
+@media(max-width:600px){
+  .hero{min-height:92vh;padding:5rem 1.2rem 3rem}
+  .hero h1{font-size:clamp(2.4rem,11vw,3.5rem);letter-spacing:-1.5px}
+  .hbtns{flex-direction:column;align-items:center}
+  .hbtns .bp,.hbtns .bo{width:100%;max-width:280px;text-align:center}
+}
+
+/* ── ABOUT ── */
+.about{padding:5rem 2rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:760px){.about{grid-template-columns:1fr;gap:2.5rem;padding:3.5rem 1.2rem}}
+.lbl{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#F5C842;margin-bottom:.9rem}
+.about h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:1.1rem}
+.about p{color:#aaa;line-height:1.8;font-size:.94rem;margin-bottom:.85rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.stat{background:#161616;border:1px solid rgba(245,200,66,.1);border-radius:13px;padding:1.15rem;transition:border-color .3s,transform .3s}
+.stat:hover{border-color:rgba(245,200,66,.28);transform:translateY(-2px)}
+.stat-n{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#F5C842}
+.stat-l{font-size:.78rem;color:#888;margin-top:.15rem}
+.vis{background:#161616;border:1px solid rgba(245,200,66,.1);border-radius:20px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden;transition:border-color .4s}
+.vis:hover{border-color:rgba(245,200,66,.25)}
+.vis-glow{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(245,200,66,.15),transparent 70%);border-radius:50%}
+@media(max-width:760px){.vis{display:none}}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(245,200,66,.18),transparent);max-width:700px;margin:0 auto}
+
+/* ── STEPS ── */
+.steps{padding:5rem 2rem;max-width:1000px;margin:0 auto;text-align:center}
+.steps h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.6rem);margin-bottom:.7rem}
+.steps .sub{color:#888;margin-bottom:3rem}
+.steps-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:2.6rem}
+@media(max-width:680px){.steps-g{grid-template-columns:1fr;gap:.9rem}.steps{padding:3.5rem 1.2rem}}
+.step{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:1.8rem 1.5rem;text-align:left;transition:border-color .35s,transform .35s,box-shadow .35s}
+.step:hover{border-color:rgba(245,200,66,.22);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.step-n{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:rgba(245,200,66,.15);line-height:1;margin-bottom:.75rem}
+.step h3{font-size:.98rem;font-weight:600;margin-bottom:.42rem}
+.step p{font-size:.83rem;color:#888;line-height:1.68}
+
+/* ── PAGE HEADER ── */
+.ph{padding:4rem 2rem 2.8rem;text-align:center;position:relative;overflow:hidden}
+.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(245,200,66,.05),transparent 70%)}
+.ph .lbl,.ph h1,.ph p{position:relative}
+.ph h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3.6rem);font-weight:900;line-height:1.04;margin-bottom:.75rem}
+.ph p{color:#888;font-size:.95rem;max-width:460px;margin:0 auto}
+@media(max-width:600px){.ph{padding:3.5rem 1.2rem 2.2rem}}
+
+/* ── BILLING TOGGLE ── */
+.billing-toggle{display:flex;align-items:center;gap:.65rem;justify-content:center;margin-top:1.3rem;flex-wrap:wrap}
+.billing-toggle span{font-size:.8rem;color:#666}
 .billing-toggle span.on{color:#fff;font-weight:500}
-.tog{width:44px;height:24px;background:#2a2a2a;border-radius:100px;position:relative;cursor:pointer;transition:background .2s;border:1px solid rgba(255,255,255,.08)}
+.tog{width:42px;height:23px;background:#2a2a2a;border-radius:100px;position:relative;cursor:pointer;transition:background .22s;border:1px solid rgba(255,255,255,.08);flex-shrink:0}
 .tog.act{background:#F5C842}
-.tog-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:left .2s}
-.tog.act .tog-thumb{left:23px;background:#0A0A0A}
-.monthly-badge{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.22);color:#F5C842;font-size:.67rem;padding:.18rem .58rem;border-radius:100px;display:none}
+.tog-thumb{position:absolute;top:3px;left:3px;width:15px;height:15px;background:#fff;border-radius:50%;transition:left .22s}
+.tog.act .tog-thumb{left:22px;background:#0A0A0A}
+.monthly-badge{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.22);color:#F5C842;font-size:.64rem;padding:.16rem .55rem;border-radius:100px;display:none}
 .monthly-badge.show{display:inline}
-/* OFFERS */
-.offers-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1040px;margin:0 auto;padding:1.8rem 3rem 6rem}
-.offer{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:17px;padding:2rem;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+
+/* ── OFFERS ── */
+.offers-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;max-width:1020px;margin:0 auto;padding:1.6rem 2rem 5.5rem}
+@media(max-width:820px){.offers-g{grid-template-columns:1fr;max-width:480px;padding:1.4rem 1.2rem 4rem}}
+.offer{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:17px;padding:1.9rem;transition:border-color .3s,transform .3s,box-shadow .3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .offer.feat{border-color:#F5C842;background:linear-gradient(135deg,#1a1600,#161616)}
-.offer.feat::after{content:'Most Popular';position:absolute;top:1rem;right:1rem;background:#F5C842;color:#0A0A0A;font-size:.66rem;font-weight:800;letter-spacing:.04em;padding:.24rem .7rem;border-radius:100px}
-.offer:hover{transform:translateY(-3px);box-shadow:0 18px 50px rgba(0,0,0,.4)}
-.o-icon{font-size:2rem;margin-bottom:1rem}
-.offer h3{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;margin-bottom:.18rem}
-.o-tag{font-size:.76rem;color:#888;margin-bottom:.85rem;font-style:italic}
-.o-price{font-size:1.8rem;font-weight:700;color:#F5C842;line-height:1;margin-bottom:.18rem}
-.o-price span{font-size:.8rem;color:#888;font-weight:400}
-.o-note{font-size:.72rem;color:#555;margin-bottom:.9rem}
-.o-desc{font-size:.82rem;color:#888;line-height:1.62;margin-bottom:1.1rem}
-.o-features{list-style:none;display:flex;flex-direction:column;gap:.42rem;margin-bottom:1.4rem;flex:1}
-.o-features li{font-size:.8rem;color:#ccc;display:flex;align-items:flex-start;gap:.48rem;line-height:1.42}
-.o-features li .fi{color:#F5C842;font-size:.6rem;flex-shrink:0;margin-top:.22rem}
+.offer.feat::after{content:'Most Popular';position:absolute;top:.95rem;right:.95rem;background:#F5C842;color:#0A0A0A;font-size:.63rem;font-weight:800;letter-spacing:.04em;padding:.22rem .68rem;border-radius:100px}
+.offer:hover{transform:translateY(-4px);box-shadow:0 20px 55px rgba(0,0,0,.4)}
+.o-icon{font-size:1.9rem;margin-bottom:.95rem}
+.offer h3{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;margin-bottom:.16rem}
+.o-tag{font-size:.74rem;color:#888;margin-bottom:.8rem;font-style:italic}
+.o-price{font-size:1.75rem;font-weight:700;color:#F5C842;line-height:1;margin-bottom:.16rem}
+.o-price span{font-size:.78rem;color:#888;font-weight:400}
+.o-note{font-size:.7rem;color:#555;margin-bottom:.85rem}
+.o-desc{font-size:.8rem;color:#888;line-height:1.62;margin-bottom:1rem}
+.o-features{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.3rem;flex:1}
+.o-features li{font-size:.78rem;color:#ccc;display:flex;align-items:flex-start;gap:.45rem;line-height:1.42}
+.o-features li .fi{color:#F5C842;font-size:.58rem;flex-shrink:0;margin-top:.22rem}
 .o-features li .fn{font-weight:600}
-.o-features li .fd{color:#555;font-size:.72rem;display:block;margin-top:.04rem}
-.o-not{margin-bottom:1.1rem}
-.o-not-t{font-size:.68rem;color:#444;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.35rem}
-.o-monthly{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:.85rem .95rem;margin-bottom:1.1rem;display:none}
+.o-features li .fd{color:#555;font-size:.7rem;display:block;margin-top:.04rem}
+.o-not{margin-bottom:1rem}
+.o-not-t{font-size:.66rem;color:#444;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.32rem}
+.o-monthly{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:.82rem .9rem;margin-bottom:1rem;display:none}
 .o-monthly.show{display:block}
-.o-monthly-t{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F5C842;margin-bottom:.45rem}
+.o-monthly-t{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F5C842;margin-bottom:.4rem}
 .o-monthly ul{list-style:none}
-.o-monthly li{font-size:.74rem;color:#aaa;display:flex;align-items:center;gap:.38rem;margin-bottom:.22rem}
-.o-monthly li::before{content:'✓';color:#F5C842;font-size:.62rem}
+.o-monthly li{font-size:.72rem;color:#aaa;display:flex;align-items:center;gap:.36rem;margin-bottom:.2rem}
+.o-monthly li::before{content:'✓';color:#F5C842;font-size:.6rem}
 .o-not-block{display:block}.o-not-block.hidden{display:none}
-/* REVIEWS */
-.rev-sum{max-width:820px;margin:0 auto;padding:0 3rem 2.2rem;display:flex;align-items:center;gap:1.6rem}
-.rev-big{font-family:'Playfair Display',serif;font-size:4.2rem;font-weight:900;color:#F5C842;line-height:1}
-.rev-stars{font-size:1.2rem;color:#F5C842}
-.rev-cnt{color:#888;font-size:.8rem;margin-top:.22rem}
-.revs{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:820px;margin:0 auto;padding:0 3rem 6rem}
-.rv{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:1.7rem;transition:border-color .3s}
-.rv:hover{border-color:rgba(245,200,66,.18)}
-.rv-s{color:#F5C842;letter-spacing:2px;margin-bottom:.75rem;font-size:.88rem}
-.rv-t{font-size:.88rem;line-height:1.72;color:#ccc;margin-bottom:1.1rem}
-.rv-a{display:flex;align-items:center;gap:.65rem}
-.av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F5C842,#C9A020);display:flex;align-items:center;justify-content:center;font-weight:700;color:#0A0A0A;font-size:.88rem;flex-shrink:0}
-.rv-n{font-weight:600;font-size:.84rem}
-.rv-sub{font-size:.74rem;color:#888;margin-top:.06rem}
-/* PORTFOLIO */
-.pw{max-width:1040px;margin:0 auto;padding:0 3rem 6rem}
-.pm{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.9rem}
-.ptags{display:flex;gap:.4rem;flex-wrap:wrap}
-.tg{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.24);color:#F5C842;font-size:.7rem;padding:.28rem .8rem;border-radius:100px}
-.tgg{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ccc;font-size:.7rem;padding:.28rem .8rem;border-radius:100px}
+
+/* ── PORTFOLIO ── */
+.pw{max-width:1020px;margin:0 auto;padding:0 2rem 5.5rem}
+@media(max-width:600px){.pw{padding:0 1.2rem 4rem}}
+.pm{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;flex-wrap:wrap;gap:.8rem}
+.ptags{display:flex;gap:.38rem;flex-wrap:wrap}
+.tg{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.24);color:#F5C842;font-size:.68rem;padding:.26rem .78rem;border-radius:100px}
+.tgg{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ccc;font-size:.68rem;padding:.26rem .78rem;border-radius:100px}
 .brow{background:#1e1e1e;border-radius:13px;overflow:hidden;border:1px solid rgba(255,255,255,.07);box-shadow:0 26px 65px rgba(0,0,0,.55)}
-.bbar{background:#2a2a2a;padding:.6rem 1rem;display:flex;align-items:center;gap:.9rem;border-bottom:1px solid rgba(255,255,255,.05)}
-.bdots{display:flex;gap:.35rem}
+.bbar{background:#2a2a2a;padding:.58rem 1rem;display:flex;align-items:center;gap:.85rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.bdots{display:flex;gap:.32rem}
 .bd{width:10px;height:10px;border-radius:50%}
-.burl{flex:1;background:#1a1a1a;border-radius:5px;padding:.26rem .85rem;font-size:.7rem;color:#555;font-family:monospace}
-.pnote{text-align:center;color:#888;font-size:.8rem;margin-top:1.2rem}
-.lnkb{background:none;border:none;color:#F5C842;font-size:.8rem;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif}
-/* CONTACT */
-.cw{max-width:660px;margin:0 auto;padding:0 3rem 6rem}
-.cc{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:2rem}
-.cc-c{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:1.2rem;text-align:center}
-.cc-i{font-size:1.6rem;margin-bottom:.38rem}
-.cc-l{font-size:.7rem;color:#888;margin-bottom:.2rem}
-.cc-v{font-size:.82rem;font-weight:500}
-.form{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:2.6rem}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:.85rem}
-.fg{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.85rem}
-.fg label{font-size:.78rem;font-weight:500;color:#bbb;letter-spacing:.025em}
-.fg input,.fg textarea,.fg select{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.76rem .9rem;color:#fff;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;resize:vertical}
+.burl{flex:1;background:#1a1a1a;border-radius:5px;padding:.24rem .82rem;font-size:.68rem;color:#555;font-family:monospace}
+.pnote{text-align:center;color:#888;font-size:.78rem;margin-top:1.1rem}
+.lnkb{background:none;border:none;color:#F5C842;font-size:.78rem;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif}
+
+/* ── CONTACT ── */
+.cw{max-width:640px;margin:0 auto;padding:0 2rem 5.5rem}
+@media(max-width:600px){.cw{padding:0 1.2rem 4rem}}
+.cc{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.8rem}
+@media(max-width:500px){.cc{grid-template-columns:1fr}}
+.cc-c{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:1.1rem;text-align:center;transition:border-color .3s}
+.cc-c:hover{border-color:rgba(245,200,66,.18)}
+.cc-i{font-size:1.5rem;margin-bottom:.35rem}
+.cc-l{font-size:.68rem;color:#888;margin-bottom:.18rem}
+.cc-v{font-size:.8rem;font-weight:500}
+.form-wrap{background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:2.4rem}
+@media(max-width:500px){.form-wrap{padding:1.6rem}}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+@media(max-width:500px){.fr{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:.38rem;margin-bottom:.8rem}
+.fg label{font-size:.76rem;font-weight:500;color:#bbb;letter-spacing:.025em}
+.fg input,.fg textarea,.fg select{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.76rem .88rem;color:#fff;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;resize:vertical;-webkit-appearance:none;font-size:16px}
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:#F5C842}
 .fg select option{background:#111}
-.pps{display:flex;gap:.5rem;flex-wrap:wrap}
-.pp{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.65rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;color:#aaa;transition:all .18s;text-align:left;flex:1;min-width:105px}
+.pps{display:flex;gap:.45rem;flex-wrap:wrap}
+.pp{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.62rem .85rem;cursor:pointer;font-family:'DM Sans',sans-serif;color:#aaa;transition:border-color .18s,color .18s,background .18s;text-align:left;flex:1;min-width:105px;-webkit-appearance:none}
 .pp:hover{border-color:rgba(245,200,66,.36);color:#fff}
 .pp.sel{border-color:#F5C842;background:rgba(245,200,66,.08);color:#F5C842}
-.pp-n{font-weight:600;font-size:.82rem;display:block}
-.pp-p{font-size:.68rem;color:#888;display:block;margin-top:.08rem}
+.pp-n{font-weight:600;font-size:.8rem;display:block}
+.pp-p{font-size:.66rem;color:#888;display:block;margin-top:.08rem}
 .pp.sel .pp-p{color:#C9A020}
-.fsub{width:100%;margin-top:.3rem;padding:.9rem}
-/* TOAST */
-.toast{position:fixed;bottom:1.6rem;right:1.6rem;background:#F5C842;color:#0A0A0A;font-weight:600;font-size:.86rem;padding:.85rem 1.5rem;border-radius:10px;z-index:999;transition:all .4s cubic-bezier(.34,1.56,.64,1);transform:translateY(100px);opacity:0}
+.fsub{width:100%;margin-top:.28rem;padding:.9rem;font-size:16px}
+.form-success{display:none;text-align:center;padding:2.5rem 1rem}
+.form-success.show{display:block}
+.form-success-icon{font-size:2.2rem;margin-bottom:.9rem}
+.form-success-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-bottom:.55rem}
+.form-success-sub{color:#888;font-size:.88rem;line-height:1.65}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:#F5C842;color:#0A0A0A;font-weight:600;font-size:.84rem;padding:.82rem 1.4rem;border-radius:10px;z-index:999;transition:all .45s cubic-bezier(.34,1.56,.64,1);transform:translateY(100px);opacity:0;max-width:calc(100vw - 2.8rem)}
 .toast.show{transform:translateY(0);opacity:1}
-/* FOOTER */
-.foot{border-top:1px solid rgba(255,255,255,.06);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between}
-.foot-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#F5C842}
-.foot-txt{font-size:.78rem;color:#888}
+
+/* ── FOOTER ── */
+.foot{border-top:1px solid rgba(255,255,255,.06);padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+@media(max-width:500px){.foot{flex-direction:column;text-align:center;padding:1.5rem 1.2rem}}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;color:#F5C842}
+.foot-txt{font-size:.76rem;color:#888}
 
 /* ── DE GROENE TAFEL ── */
 .gt{font-family:'Georgia',serif;background:#FAF8F3;color:#1a1a1a}
 .gt *{box-sizing:border-box;margin:0;padding:0}
-.gt-nav{background:#1B3A2D;padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between}
-.gt-logo{font-size:1.05rem;font-weight:700;color:#FAF8F3;letter-spacing:.04em}
+.gt-nav{background:#1B3A2D;padding:.82rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.gt-logo{font-size:1rem;font-weight:700;color:#FAF8F3;letter-spacing:.04em}
 .gt-logo em{font-style:italic;color:#C8A96E}
-.gt-nl{display:flex;gap:.2rem}
-.gt-nb{background:none;border:none;color:rgba(250,248,243,.6);font-family:'Georgia',serif;font-size:.74rem;cursor:pointer;padding:.36rem .78rem;border-radius:3px;transition:all .18s}
+.gt-nl{display:flex;gap:.18rem;flex-wrap:wrap}
+.gt-nb{background:none;border:none;color:rgba(250,248,243,.6);font-family:'Georgia',serif;font-size:.72rem;cursor:pointer;padding:.34rem .72rem;border-radius:3px;transition:all .18s;-webkit-appearance:none}
 .gt-nb:hover,.gt-nb.on{color:#FAF8F3;background:rgba(200,169,110,.18)}
 .gt-nb.res{background:#C8A96E;color:#1B3A2D;font-weight:700}
 .gt-nb.res:hover{background:#b5956a}
 .gt-section{display:none}.gt-section.active{display:block}
-.gt-hero{background:linear-gradient(155deg,#1B3A2D 0%,#2a5040 52%,#FAF8F3 100%);padding:2.8rem 2rem 2.4rem;text-align:center}
-.gt-ey{font-family:'Georgia',serif;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:#C8A96E;margin-bottom:.65rem}
-.gt-ht{font-family:'Georgia',serif;font-size:2rem;font-weight:700;color:#FAF8F3;line-height:1.2;margin-bottom:.55rem}
+.gt-hero{background:linear-gradient(155deg,#1B3A2D 0%,#2a5040 52%,#FAF8F3 100%);padding:2.5rem 1.5rem 2.2rem;text-align:center}
+.gt-ey{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#C8A96E;margin-bottom:.62rem}
+.gt-ht{font-size:clamp(1.5rem,4vw,2rem);font-weight:700;color:#FAF8F3;line-height:1.2;margin-bottom:.52rem}
 .gt-ht em{font-style:italic;color:#C8A96E}
-.gt-hs{font-family:'Georgia',serif;font-size:.8rem;color:rgba(250,248,243,.68);margin-bottom:1.3rem;line-height:1.55}
-.gt-hb{display:flex;gap:.65rem;justify-content:center}
-.gt-bg{background:#C8A96E;color:#1B3A2D;font-family:'Georgia',serif;font-size:.74rem;font-weight:700;padding:.5rem 1.15rem;border:none;border-radius:3px;cursor:pointer}
-.gt-og{border:1px solid rgba(200,169,110,.45);color:#C8A96E;font-family:'Georgia',serif;font-size:.74rem;padding:.5rem 1.15rem;border-radius:3px;cursor:pointer;background:none}
-.gt-ib{background:#fff;border-bottom:1px solid #e8e0d0;padding:.58rem 2rem;display:flex;gap:2rem;justify-content:center}
-.gt-ch{display:flex;align-items:center;gap:.36rem;font-family:'Georgia',serif;font-size:.7rem;color:#666}
+.gt-hs{font-size:.78rem;color:rgba(250,248,243,.68);margin-bottom:1.2rem;line-height:1.55}
+.gt-hb{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+.gt-bg{background:#C8A96E;color:#1B3A2D;font-family:'Georgia',serif;font-size:.72rem;font-weight:700;padding:.48rem 1.1rem;border:none;border-radius:3px;cursor:pointer;-webkit-appearance:none}
+.gt-og{border:1px solid rgba(200,169,110,.45);color:#C8A96E;font-family:'Georgia',serif;font-size:.72rem;padding:.48rem 1.1rem;border-radius:3px;cursor:pointer;background:none}
+.gt-ib{background:#fff;border-bottom:1px solid #e8e0d0;padding:.55rem 1.5rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.gt-ch{display:flex;align-items:center;gap:.34rem;font-family:'Georgia',serif;font-size:.68rem;color:#666}
 .gt-cd{width:5px;height:5px;background:#C8A96E;border-radius:50%;flex-shrink:0}
-.gt-home-body{padding:1.6rem 2rem 1.8rem;background:#FAF8F3}
-.gt-sh{text-align:center;margin-bottom:1.3rem}
-.gt-sey{font-family:'Georgia',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#C8A96E;margin-bottom:.42rem}
-.gt-st{font-family:'Georgia',serif;font-size:1.4rem;font-weight:700;color:#1B3A2D}
-.gt-sr{width:38px;height:1px;background:#C8A96E;margin:.5rem auto 0}
-.gt-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
-.gt-card{background:#fff;border:1px solid #e8e0d0;border-radius:5px;padding:1.1rem;text-align:center}
-.gt-ci{font-size:1.5rem;margin-bottom:.45rem}
-.gt-ct{font-family:'Georgia',serif;font-size:.82rem;font-weight:700;color:#1B3A2D;margin-bottom:.35rem}
-.gt-cd2{font-family:'Georgia',serif;font-size:.7rem;color:#888;line-height:1.52;font-style:italic}
-.gt-mp{background:#FAF8F3;padding:1.6rem 2rem 1.8rem}
-.gt-tabs{display:flex;justify-content:center;gap:.28rem;margin-bottom:1.3rem}
-.gt-tab{background:none;border:1px solid #ddd;font-family:'Georgia',serif;font-size:.72rem;padding:.36rem .85rem;border-radius:3px;cursor:pointer;color:#888;transition:all .18s}
+.gt-home-body{padding:1.5rem 1.5rem 1.7rem;background:#FAF8F3}
+.gt-sh{text-align:center;margin-bottom:1.2rem}
+.gt-sey{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#C8A96E;margin-bottom:.4rem}
+.gt-st{font-size:1.35rem;font-weight:700;color:#1B3A2D}
+.gt-sr{width:36px;height:1px;background:#C8A96E;margin:.48rem auto 0}
+.gt-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+@media(max-width:560px){.gt-cards{grid-template-columns:1fr}}
+.gt-card{background:#fff;border:1px solid #e8e0d0;border-radius:5px;padding:1rem;text-align:center}
+.gt-ci{font-size:1.4rem;margin-bottom:.4rem}
+.gt-ct{font-size:.8rem;font-weight:700;color:#1B3A2D;margin-bottom:.32rem}
+.gt-cd2{font-size:.68rem;color:#888;line-height:1.5;font-style:italic}
+.gt-mp{background:#FAF8F3;padding:1.5rem 1.5rem 1.7rem}
+.gt-tabs{display:flex;justify-content:center;gap:.25rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.gt-tab{background:none;border:1px solid #ddd;font-family:'Georgia',serif;font-size:.7rem;padding:.34rem .82rem;border-radius:3px;cursor:pointer;color:#888;transition:all .18s;-webkit-appearance:none}
 .gt-tab.on{border-color:#1B3A2D;background:#1B3A2D;color:#FAF8F3}
 .gt-dishes{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.gt-dish{padding:1rem 0;border-bottom:1px solid #ece6da;display:flex;align-items:flex-start;justify-content:space-between;gap:.9rem}
+@media(max-width:500px){.gt-dishes{grid-template-columns:1fr}}
+.gt-dish{padding:.95rem 0;border-bottom:1px solid #ece6da;display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem}
 .gt-dish:nth-last-child(-n+2){border-bottom:none}
-.gt-dn{font-family:'Georgia',serif;font-size:.86rem;font-weight:700;color:#1a1a1a;margin-bottom:.15rem}
-.gt-dd{font-family:'Georgia',serif;font-size:.7rem;color:#888;line-height:1.42;font-style:italic}
-.gt-da{font-family:'Georgia',serif;font-size:.6rem;color:#bbb;margin-top:.15rem}
-.gt-dp{font-family:'Georgia',serif;font-size:.88rem;font-weight:700;color:#C8A96E;white-space:nowrap;flex-shrink:0;padding-right:1rem}
-.gt-wine-row{padding:.68rem 0;border-bottom:1px solid #ece6da;display:flex;justify-content:space-between;align-items:center}
+@media(max-width:500px){.gt-dish:nth-last-child(-n+2){border-bottom:1px solid #ece6da}.gt-dish:last-child{border-bottom:none}}
+.gt-dn{font-size:.84rem;font-weight:700;color:#1a1a1a;margin-bottom:.14rem}
+.gt-dd{font-size:.68rem;color:#888;line-height:1.42;font-style:italic}
+.gt-da{font-size:.58rem;color:#bbb;margin-top:.14rem}
+.gt-dp{font-size:.86rem;font-weight:700;color:#C8A96E;white-space:nowrap;flex-shrink:0;padding-right:1rem}
+.gt-wine-row{padding:.65rem 0;border-bottom:1px solid #ece6da;display:flex;justify-content:space-between;align-items:center}
 .gt-wine-row:last-child{border-bottom:none}
-.gt-wn{font-family:'Georgia',serif;font-size:.82rem;font-weight:700;color:#1a1a1a}
-.gt-wr{font-family:'Georgia',serif;font-size:.68rem;color:#888;font-style:italic}
-.gt-wp{font-family:'Georgia',serif;font-size:.82rem;color:#C8A96E;font-weight:700}
-.gt-mn{font-family:'Georgia',serif;font-size:.68rem;color:#aaa;text-align:center;font-style:italic;margin-top:1rem}
-.gt-rp{background:#FAF8F3;padding:1.6rem 2rem 1.8rem}
-.gt-rg{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;align-items:start}
-.gt-fc{background:#fff;border:1px solid #e8e0d0;border-radius:5px;padding:1.3rem}
-.gt-ft{font-family:'Georgia',serif;font-size:.96rem;font-weight:700;color:#1B3A2D;margin-bottom:.18rem}
-.gt-fs{font-family:'Georgia',serif;font-size:.7rem;color:#888;margin-bottom:1rem;font-style:italic}
-.gt-fl{font-family:'Georgia',serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1B3A2D;display:block;margin-bottom:.3rem}
-.gt-fi{width:100%;background:#FAF8F3;border:1px solid #ddd;border-radius:3px;padding:.5rem .7rem;font-family:'Georgia',serif;font-size:.8rem;color:#1a1a1a;outline:none;transition:border-color .18s}
+.gt-wn{font-size:.8rem;font-weight:700;color:#1a1a1a}
+.gt-wr{font-size:.66rem;color:#888;font-style:italic}
+.gt-wp{font-size:.8rem;color:#C8A96E;font-weight:700}
+.gt-mn{font-size:.66rem;color:#aaa;text-align:center;font-style:italic;margin-top:.95rem}
+.gt-rp{background:#FAF8F3;padding:1.5rem 1.5rem 1.7rem}
+.gt-rg{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:start}
+@media(max-width:600px){.gt-rg{grid-template-columns:1fr}}
+.gt-fc{background:#fff;border:1px solid #e8e0d0;border-radius:5px;padding:1.2rem}
+.gt-ft{font-size:.94rem;font-weight:700;color:#1B3A2D;margin-bottom:.16rem}
+.gt-fs{font-size:.68rem;color:#888;margin-bottom:.95rem;font-style:italic}
+.gt-fl{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#1B3A2D;display:block;margin-bottom:.28rem}
+.gt-fi{width:100%;background:#FAF8F3;border:1px solid #ddd;border-radius:3px;padding:.48rem .68rem;font-family:'Georgia',serif;font-size:16px;color:#1a1a1a;outline:none;transition:border-color .18s;-webkit-appearance:none}
 .gt-fi:focus{border-color:#C8A96E}
-.gt-frow{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.75rem}
-.gt-fg{margin-bottom:.75rem}
-.gt-sub{width:100%;background:#1B3A2D;color:#FAF8F3;font-family:'Georgia',serif;font-size:.8rem;font-weight:700;border:none;padding:.68rem;border-radius:3px;cursor:pointer;margin-top:.35rem;letter-spacing:.04em}
-.gt-conf{background:#f0f7f3;border:1px solid #c8e6d5;border-radius:5px;padding:1.2rem;text-align:center;display:none}
+.gt-frow{display:grid;grid-template-columns:1fr 1fr;gap:.52rem;margin-bottom:.72rem}
+@media(max-width:400px){.gt-frow{grid-template-columns:1fr}}
+.gt-fg{margin-bottom:.72rem}
+.gt-sub{width:100%;background:#1B3A2D;color:#FAF8F3;font-family:'Georgia',serif;font-size:.78rem;font-weight:700;border:none;padding:.65rem;border-radius:3px;cursor:pointer;margin-top:.32rem;letter-spacing:.04em;-webkit-appearance:none}
+.gt-conf{background:#f0f7f3;border:1px solid #c8e6d5;border-radius:5px;padding:1.1rem;text-align:center;display:none}
 .gt-conf.show{display:block}
-.gt-form-fields{display:block}
 .gt-form-fields.hidden{display:none}
-.gt-conf-i{font-size:1.7rem;margin-bottom:.45rem}
-.gt-conf-t{font-family:'Georgia',serif;font-size:.92rem;font-weight:700;color:#1B3A2D;margin-bottom:.28rem}
-.gt-conf-s{font-family:'Georgia',serif;font-size:.73rem;color:#666;line-height:1.55}
-.gt-conf-back{margin-top:.9rem;background:none;border:1px solid #c8e6d5;border-radius:3px;padding:.42rem .9rem;font-family:'Georgia',serif;font-size:.74rem;color:#1B3A2D;cursor:pointer}
-.gt-ic{background:#fff;border:1px solid #e8e0d0;border-radius:5px;padding:1.3rem;margin-bottom:1rem}
-.gt-ict{font-family:'Georgia',serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#C8A96E;margin-bottom:.9rem}
-.gt-ir{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid #f0e8da;font-family:'Georgia',serif;font-size:.76rem}
+.gt-conf-i{font-size:1.6rem;margin-bottom:.42rem}
+.gt-conf-t{font-size:.9rem;font-weight:700;color:#1B3A2D;margin-bottom:.25rem}
+.gt-conf-s{font-size:.71rem;color:#666;line-height:1.55}
+.gt-conf-back{margin-top:.85rem;background:none;border:1px solid #c8e6d5;border-radius:3px;padding:.4rem .85rem;font-family:'Georgia',serif;font-size:.72rem;color:#1B3A2D;cursor:pointer}
+.gt-ic{background:#fff;border:1px solid #e8e0d0;border-radius:5px;padding:1.2rem;margin-bottom:.95rem}
+.gt-ict{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#C8A96E;margin-bottom:.85rem}
+.gt-ir{display:flex;justify-content:space-between;padding:.48rem 0;border-bottom:1px solid #f0e8da;font-size:.74rem}
 .gt-ir:last-child{border-bottom:none}
 .gt-id{color:#1a1a1a;font-weight:600}
 .gt-ih{color:#1B3A2D;font-weight:500}
 .gt-icl{color:#bbb}
-.gt-mb{background:#f0f7f3;border-radius:4px;padding:.85rem;text-align:center;margin-top:.9rem}
-.gt-mbt{font-family:'Georgia',serif;font-size:.78rem;font-weight:700;color:#1B3A2D;margin-bottom:.18rem}
-.gt-mba{font-family:'Georgia',serif;font-size:.7rem;color:#666}
-.gt-good{font-family:'Georgia',serif;font-size:.71rem;color:#666;padding:.36rem 0;border-bottom:1px solid #f0e8da;line-height:1.45}
+.gt-mb{background:#f0f7f3;border-radius:4px;padding:.82rem;text-align:center;margin-top:.85rem}
+.gt-mbt{font-size:.76rem;font-weight:700;color:#1B3A2D;margin-bottom:.16rem}
+.gt-mba{font-size:.68rem;color:#666}
+.gt-good{font-size:.69rem;color:#666;padding:.34rem 0;border-bottom:1px solid #f0e8da;line-height:1.45}
 .gt-good:last-child{border-bottom:none}
-.gt-foot{background:#1B3A2D;padding:.85rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.gt-fn{font-family:'Georgia',serif;font-size:.82rem;font-weight:700;color:#FAF8F3}
-.gt-fc2{font-family:'Georgia',serif;font-size:.66rem;color:rgba(250,248,243,.38)}
+.gt-foot{background:#1B3A2D;padding:.82rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+.gt-fn{font-size:.8rem;font-weight:700;color:#FAF8F3}
+.gt-fc2{font-size:.64rem;color:rgba(250,248,243,.36)}
 .gt-menu-tabs-content{display:none}.gt-menu-tabs-content.active{display:block}
 </style>
 </head>
@@ -246,7 +304,6 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   <ul class="nav-ul">
     <li><button class="nb on" id="nav-home" onclick="goTo('home','')">Home</button></li>
     <li><button class="nb" id="nav-offers" onclick="goTo('offers','')">What We Offer</button></li>
-    <li><button class="nb" id="nav-reviews" onclick="goTo('reviews','')">Reviews</button></li>
     <li><button class="nb" id="nav-portfolio" onclick="goTo('portfolio','')">Portfolio</button></li>
     <li><button class="nb cta" id="nav-contact" onclick="goTo('contact','')">Contact Us</button></li>
   </ul>
@@ -258,47 +315,53 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-bg"></div>
-    <h1>Your Business<br/>in the <em>Spotlight</em></h1>
-    <div class="hbtns">
+    <div class="hero-wordmark" id="hero-wordmark">GlowWebsite</div>
+    <h1 id="hero-title">Your Business<br/>in the <em>Spotlight</em></h1>
+    <div class="hero-rule" id="hero-rule"></div>
+    <div class="hbtns" id="hero-btns">
       <button class="bp" onclick="goTo('offers','')">What We Offer</button>
       <button class="bo" onclick="goTo('portfolio','')">See Our Work</button>
     </div>
   </section>
+
   <section class="about">
     <div>
-      <p class="lbl">✦ Who We Are</p>
-      <h2>We put small businesses on the digital map</h2>
-      <p>GlowWebsite was founded with one belief: every local business deserves a stunning online presence — not just the big corporations. We build fast, beautiful, and effective websites tailored to restaurants, boutiques, salons, and all kinds of small businesses.</p>
-      <p>From your first conversation with us to the moment your website goes live, we handle everything. No technical headaches, no confusing jargon — just results that bring customers to your door.</p>
+      <p class="lbl reveal">✦ Who We Are</p>
+      <h2 class="reveal reveal-delay-1">We put small businesses on the digital map</h2>
+      <p class="reveal reveal-delay-2">GlowWebsite was founded with one belief: every local business deserves a stunning online presence — not just the big corporations. We build fast, beautiful, and effective websites tailored to restaurants, boutiques, salons, and all kinds of small businesses.</p>
+      <p class="reveal reveal-delay-2">From your first conversation with us to the moment your website goes live, we handle everything. No technical headaches, no confusing jargon — just results that bring customers to your door.</p>
       <div class="stats">
-        <div class="stat"><div class="stat-n">72h</div><div class="stat-l">Average delivery</div></div>
-        <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Support included</div></div>
+        <div class="stat reveal reveal-delay-2"><div class="stat-n">72h</div><div class="stat-l">Average delivery</div></div>
+        <div class="stat reveal reveal-delay-3"><div class="stat-n">24/7</div><div class="stat-l">Support included</div></div>
       </div>
     </div>
-    <div class="vis"><div class="vis-glow"></div><span style="position:relative;z-index:1;font-size:5.5rem">✦</span></div>
+    <div class="vis reveal reveal-delay-2"><div class="vis-glow"></div><span style="position:relative;z-index:1;font-size:5rem">✦</span></div>
   </section>
+
   <div class="divider"></div>
+
   <section class="steps">
-    <p class="lbl">✦ How It Works</p>
-    <h2>From idea to online in 3 steps</h2>
-    <p class="sub">Getting your business online has never been this simple.</p>
+    <p class="lbl reveal">✦ How It Works</p>
+    <h2 class="reveal reveal-delay-1">From idea to online in 3 steps</h2>
+    <p class="sub reveal reveal-delay-2">Getting your business online has never been this simple.</p>
     <div class="steps-g">
-      <div class="step"><div class="step-n">01</div><h3>Tell us about your business</h3><p>Fill out our quick contact form or send us an email. We'll learn what makes your business unique and what you want to achieve online.</p></div>
-      <div class="step"><div class="step-n">02</div><h3>We design &amp; build for you</h3><p>Our team creates a custom design that fits your brand. You'll see a preview before anything goes live — your feedback shapes everything.</p></div>
-      <div class="step"><div class="step-n">03</div><h3>Go live &amp; grow</h3><p>We launch your site and hand over the keys. Need updates later? We're always just a message away with our ongoing support plans.</p></div>
+      <div class="step reveal reveal-delay-1"><div class="step-n">01</div><h3>Tell us about your business</h3><p>Fill out our quick contact form or send us an email. We'll learn what makes your business unique and what you want to achieve online.</p></div>
+      <div class="step reveal reveal-delay-2"><div class="step-n">02</div><h3>We design &amp; build for you</h3><p>Our team creates a custom design that fits your brand. You'll see a preview before anything goes live — your feedback shapes everything.</p></div>
+      <div class="step reveal reveal-delay-3"><div class="step-n">03</div><h3>Go live &amp; grow</h3><p>We launch your site and hand over the keys. Need updates later? We're always just a message away with our ongoing support plans.</p></div>
     </div>
-    <button class="bp" onclick="goTo('contact','')">Start Today — It's Free to Ask</button>
+    <button class="bp reveal" onclick="goTo('contact','')">Start Today — It's Free to Ask</button>
   </section>
+
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
 
 <!-- ══ OFFERS ══ -->
 <div class="page" id="page-offers">
   <div class="ph">
-    <p class="lbl">✦ Packages</p>
-    <h1>What We <em style="font-style:italic;color:#F5C842">Offer</em></h1>
-    <p>Clear pricing, clear differences. Every plan is built around what your business actually needs.</p>
-    <div class="billing-toggle">
+    <p class="lbl reveal">✦ Packages</p>
+    <h1 class="reveal reveal-delay-1">What We <em style="font-style:italic;color:#F5C842">Offer</em></h1>
+    <p class="reveal reveal-delay-2">Clear pricing, clear differences. Every plan is built around what your business actually needs.</p>
+    <div class="billing-toggle reveal reveal-delay-2">
       <span class="on" id="tog-one">One-time</span>
       <div class="tog" id="billing-tog" onclick="toggleBilling()"><div class="tog-thumb"></div></div>
       <span id="tog-mon">Monthly subscription</span>
@@ -306,11 +369,8 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
     </div>
   </div>
   <div class="offers-g">
-    <!-- STARTER -->
-    <div class="offer">
-      <div class="o-icon">🌱</div>
-      <h3>Starter</h3>
-      <p class="o-tag">Get online, fast.</p>
+    <div class="offer reveal reveal-delay-1">
+      <div class="o-icon">🌱</div><h3>Starter</h3><p class="o-tag">Get online, fast.</p>
       <div class="o-price one-time-price">€199<span> one-time</span></div>
       <div class="o-price monthly-price" style="display:none">€49<span>/month</span></div>
       <p class="o-note one-time-note">Optional care plan: €49/mo</p>
@@ -324,25 +384,12 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
         <li><span class="fi">✦</span><span><span class="fn">Google Maps integration</span><span class="fd">Help customers find you</span></span></li>
         <li><span class="fi">✦</span><span><span class="fn">Basic SEO setup</span><span class="fd">Get found on Google</span></span></li>
       </ul>
-      <div class="o-monthly" id="monthly-starter">
-        <div class="o-monthly-t">Care Plan Includes</div>
-        <ul><li>Website hosting</li><li>SSL security certificate</li><li>Uptime monitoring</li></ul>
-      </div>
-      <div class="o-not-block" id="not-starter">
-        <div class="o-not-t">Not included</div>
-        <div style="font-size:.76rem;color:#3a3a3a;padding:.1rem 0">— Reservation system</div>
-        <div style="font-size:.76rem;color:#3a3a3a;padding:.1rem 0">— Advanced SEO</div>
-        <div style="font-size:.76rem;color:#3a3a3a;padding:.1rem 0">— Custom animations</div>
-        <div style="font-size:.76rem;color:#3a3a3a;padding:.1rem 0">— Social media integration</div>
-        <div style="font-size:.76rem;color:#3a3a3a;padding:.1rem 0">— Priority support</div>
-      </div>
+      <div class="o-monthly" id="monthly-starter"><div class="o-monthly-t">Care Plan Includes</div><ul><li>Website hosting</li><li>SSL security certificate</li><li>Uptime monitoring</li></ul></div>
+      <div class="o-not-block" id="not-starter"><div class="o-not-t">Not included</div><div style="font-size:.74rem;color:#3a3a3a;padding:.1rem 0">— Reservation system</div><div style="font-size:.74rem;color:#3a3a3a;padding:.1rem 0">— Advanced SEO</div><div style="font-size:.74rem;color:#3a3a3a;padding:.1rem 0">— Custom animations</div><div style="font-size:.74rem;color:#3a3a3a;padding:.1rem 0">— Social media integration</div><div style="font-size:.74rem;color:#3a3a3a;padding:.1rem 0">— Priority support</div></div>
       <button class="bo" onclick="goTo('contact','starter')">Get Started</button>
     </div>
-    <!-- PROFESSIONAL -->
-    <div class="offer feat">
-      <div class="o-icon">⚡</div>
-      <h3>Professional</h3>
-      <p class="o-tag">Grow your business online.</p>
+    <div class="offer feat reveal reveal-delay-2">
+      <div class="o-icon">⚡</div><h3>Professional</h3><p class="o-tag">Grow your business online.</p>
       <div class="o-price one-time-price">€500<span> one-time</span></div>
       <div class="o-price monthly-price" style="display:none">€89<span>/month</span></div>
       <p class="o-note one-time-note">Optional care plan: €89/mo</p>
@@ -356,21 +403,12 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
         <li><span class="fi">✦</span><span><span class="fn">Advanced SEO setup</span><span class="fd">Keyword research, meta tags, sitemaps</span></span></li>
         <li><span class="fi">✦</span><span><span class="fn">Google Analytics dashboard</span><span class="fd">See who visits and how</span></span></li>
       </ul>
-      <div class="o-monthly" id="monthly-professional">
-        <div class="o-monthly-t">Care Plan Includes</div>
-        <ul><li>Website hosting</li><li>SSL security certificate</li><li>Daily backups</li><li>Monthly content updates (up to 5)</li><li>Performance monitoring</li></ul>
-      </div>
-      <div class="o-not-block" id="not-professional">
-        <div class="o-not-t">Not included</div>
-        <div style="font-size:.76rem;color:#3a3a3a;padding:.1rem 0">— Social media integration</div>
-      </div>
+      <div class="o-monthly" id="monthly-professional"><div class="o-monthly-t">Care Plan Includes</div><ul><li>Website hosting</li><li>SSL security certificate</li><li>Daily backups</li><li>Monthly content updates (up to 5)</li><li>Performance monitoring</li></ul></div>
+      <div class="o-not-block" id="not-professional"><div class="o-not-t">Not included</div><div style="font-size:.74rem;color:#3a3a3a;padding:.1rem 0">— Social media integration</div></div>
       <button class="bp" onclick="goTo('contact','professional')">Get Started</button>
     </div>
-    <!-- PREMIUM -->
-    <div class="offer">
-      <div class="o-icon">✦</div>
-      <h3>Premium</h3>
-      <p class="o-tag">The complete digital presence.</p>
+    <div class="offer reveal reveal-delay-3">
+      <div class="o-icon">✦</div><h3>Premium</h3><p class="o-tag">The complete digital presence.</p>
       <div class="o-price one-time-price">€999<span> one-time</span></div>
       <div class="o-price monthly-price" style="display:none">€149<span>/month</span></div>
       <p class="o-note one-time-note">Optional care plan: €149/mo</p>
@@ -384,10 +422,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
         <li><span class="fi">✦</span><span><span class="fn">Priority support</span><span class="fd">Responses within 2 hours</span></span></li>
         <li><span class="fi">✦</span><span><span class="fn">Quarterly design refresh</span><span class="fd">Keep your site current each season</span></span></li>
       </ul>
-      <div class="o-monthly" id="monthly-premium">
-        <div class="o-monthly-t">Care Plan Includes</div>
-        <ul><li>Website hosting</li><li>SSL &amp; advanced security</li><li>Daily backups</li><li>Unlimited content updates</li><li>Social media integration &amp; posting (4×/mo)</li><li>Monthly performance report</li><li>Priority support</li></ul>
-      </div>
+      <div class="o-monthly" id="monthly-premium"><div class="o-monthly-t">Care Plan Includes</div><ul><li>Website hosting</li><li>SSL &amp; advanced security</li><li>Daily backups</li><li>Unlimited content updates</li><li>Social media integration &amp; posting (4×/mo)</li><li>Monthly performance report</li><li>Priority support</li></ul></div>
       <div class="o-not-block hidden" id="not-premium"></div>
       <button class="bo" onclick="goTo('contact','premium')">Get Started</button>
     </div>
@@ -395,48 +430,25 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
 
-<!-- ══ REVIEWS ══ -->
-<div class="page" id="page-reviews">
-  <div class="ph">
-    <p class="lbl">✦ Client Reviews</p>
-    <h1>What Our <em style="font-style:italic;color:#F5C842">Clients</em> Say</h1>
-    <p>Honest feedback from business owners we've worked with.</p>
-  </div>
-  <div class="rev-sum">
-    <div class="rev-big">4.9</div>
-    <div><div class="rev-stars">★★★★★</div><div class="rev-cnt">Based on 47 reviews</div></div>
-  </div>
-  <div class="revs">
-    <div class="rv"><div class="rv-s">★★★★★</div><p class="rv-t">"I had been putting off getting a website for two years because it always seemed complicated and expensive. GlowWebsite sorted everything out in less than a week. We've seen a noticeable increase in reservations since going online, especially from people who found us through Google."</p><div class="rv-a"><div class="av">T</div><div><div class="rv-n">Thomas van der Berg</div><div class="rv-sub">Restaurant owner, Rotterdam</div></div></div></div>
-    <div class="rv"><div class="rv-s">★★★★★</div><p class="rv-t">"The design they came up with was nothing like the template sites I'd been looking at. It actually looks like us. Since launching I've had more new clients booking online rather than having to call, which has made things a lot easier to manage."</p><div class="rv-a"><div class="av">A</div><div><div class="rv-n">Annika Smits</div><div class="rv-sub">Salon owner, Amsterdam</div></div></div></div>
-    <div class="rv"><div class="rv-s">★★★★★</div><p class="rv-t">"I was sceptical at first, but the team was patient with my questions and never made me feel like I was being difficult. The site went live on time and exactly as discussed. Very happy."</p><div class="rv-a"><div class="av">R</div><div><div class="rv-n">Remi Dubois</div><div class="rv-sub">Bakery owner, Utrecht</div></div></div></div>
-    <div class="rv"><div class="rv-s">★★★★☆</div><p class="rv-t">"Good value for what you get. We went with the Professional package and the reservation system alone has paid for itself. One round of revisions took slightly longer than expected, but the final result was great."</p><div class="rv-a"><div class="av">L</div><div><div class="rv-n">Laura Jansen</div><div class="rv-sub">Restaurant owner, Den Haag</div></div></div></div>
-  </div>
-  <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
-</div>
-
 <!-- ══ PORTFOLIO ══ -->
 <div class="page" id="page-portfolio">
   <div class="ph">
-    <p class="lbl">✦ Our Work</p>
-    <h1>Our <em style="font-style:italic;color:#F5C842">Portfolio</em></h1>
-    <p>A fully working example — click Menu and Reserve a Table to see it in action.</p>
+    <p class="lbl reveal">✦ Our Work</p>
+    <h1 class="reveal reveal-delay-1">Our <em style="font-style:italic;color:#F5C842">Portfolio</em></h1>
+    <p class="reveal reveal-delay-2">A fully working example — click Menu and Reserve a Table to see it in action.</p>
   </div>
   <div class="pw">
-    <div class="pm">
+    <div class="pm reveal">
       <div>
-        <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#F5C842;margin-bottom:.3rem">✦ Example Project — Restaurant</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700">De Groene Tafel — Concept Website</h2>
-        <p style="color:#888;font-size:.82rem;margin-top:.22rem">A fictional restaurant created to demonstrate our design and features</p>
+        <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#F5C842;margin-bottom:.28rem">✦ Example Project — Restaurant</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700">De Groene Tafel — Concept Website</h2>
+        <p style="color:#888;font-size:.8rem;margin-top:.2rem">A fictional restaurant created to demonstrate our design and features</p>
       </div>
       <div class="ptags"><span class="tg">Restaurant</span><span class="tgg">Digital Menu</span><span class="tgg">Online Reservations</span><span class="tgg">Concept</span></div>
     </div>
-    <div class="brow">
-      <div class="bbar">
-        <div class="bdots"><div class="bd" style="background:#ff5f57"></div><div class="bd" style="background:#ffbd2e"></div><div class="bd" style="background:#28c840"></div></div>
-        <div class="burl">www.degroeentafel.nl</div>
-      </div>
-      <!-- DE GROENE TAFEL DEMO -->
+    <div class="brow reveal reveal-delay-1">
+      <div class="bbar"><div class="bdots"><div class="bd" style="background:#ff5f57"></div><div class="bd" style="background:#ffbd2e"></div><div class="bd" style="background:#28c840"></div></div><div class="burl">www.degroeentafel.nl</div></div>
+      <!-- DE GROENE TAFEL -->
       <div class="gt">
         <div class="gt-nav">
           <div class="gt-logo">De Groene <em>Tafel</em></div>
@@ -446,21 +458,16 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
             <button class="gt-nb res" onclick="gtPage('res')">Reserve a Table</button>
           </div>
         </div>
-        <!-- HOME -->
         <div class="gt-section active" id="gt-home">
           <div class="gt-hero">
             <div class="gt-ey">Amsterdam · Fine Dining</div>
             <div class="gt-ht">Where <em>Simplicity</em><br/>Becomes Excellence</div>
             <div class="gt-hs">Seasonal French-Dutch cuisine in the heart of the Jordaan.<br/>Tuesday through Sunday, from noon.</div>
-            <div class="gt-hb">
-              <button class="gt-bg" onclick="gtPage('res')">Reserve a Table</button>
-              <button class="gt-og" onclick="gtPage('menu')">View Menu</button>
-            </div>
+            <div class="gt-hb"><button class="gt-bg" onclick="gtPage('res')">Reserve a Table</button><button class="gt-og" onclick="gtPage('menu')">View Menu</button></div>
           </div>
           <div class="gt-ib">
             <div class="gt-ch"><div class="gt-cd"></div><span>Tue–Sun 12:00–22:00</span></div>
             <div class="gt-ch"><div class="gt-cd"></div><span>Jordaan, Amsterdam</span></div>
-            <div class="gt-ch"><div class="gt-cd"></div><span>+31 20 123 45 67</span></div>
             <div class="gt-ch"><div class="gt-cd"></div><span>Reservations recommended</span></div>
           </div>
           <div class="gt-home-body">
@@ -468,17 +475,13 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
             <div class="gt-cards">
               <div class="gt-card"><div class="gt-ci">🌿</div><div class="gt-ct">Farm to Table</div><div class="gt-cd2">We source from 12 Dutch and Belgian farms. Every ingredient is chosen for the season.</div></div>
               <div class="gt-card"><div class="gt-ci">🍷</div><div class="gt-ct">Natural Wines</div><div class="gt-cd2">Our cellar features over 80 labels — mostly biodynamic, always food-friendly.</div></div>
-              <div class="gt-card"><div class="gt-ci">🕯️</div><div class="gt-ct">Intimate Setting</div><div class="gt-cd2">32 covers. A room designed for conversation, not noise. Reservations recommended.</div></div>
+              <div class="gt-card"><div class="gt-ci">🕯️</div><div class="gt-ct">Intimate Setting</div><div class="gt-cd2">32 covers. A room designed for conversation, not noise.</div></div>
             </div>
           </div>
         </div>
-        <!-- MENU -->
         <div class="gt-section" id="gt-menu">
           <div class="gt-mp">
-            <div class="gt-sh" style="margin-bottom:1.1rem">
-              <div class="gt-sey">À La Carte</div><div class="gt-st">Our Menu</div><div class="gt-sr"></div>
-              <p style="font-family:'Georgia',serif;font-size:.68rem;color:#888;margin-top:.6rem;font-style:italic">Menu changes seasonally · All prices include VAT · Allergens listed below each dish</p>
-            </div>
+            <div class="gt-sh" style="margin-bottom:1rem"><div class="gt-sey">À La Carte</div><div class="gt-st">Our Menu</div><div class="gt-sr"></div><p style="font-size:.65rem;color:#888;margin-top:.55rem;font-style:italic">Menu changes seasonally · All prices include VAT · Allergens listed below each dish</p></div>
             <div class="gt-tabs">
               <button class="gt-tab on" onclick="gtMenuTab('starters',this)">Starters</button>
               <button class="gt-tab" onclick="gtMenuTab('mains',this)">Mains</button>
@@ -495,9 +498,9 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
             </div>
             <div class="gt-menu-tabs-content" id="gt-tab-mains">
               <div class="gt-dishes">
-                <div class="gt-dish"><div><div class="gt-dn">Catch of the Day</div><div class="gt-dd">Ask your server — pan-fried, seasonal vegetables, beurre blanc</div><div class="gt-da">fish, dairy</div></div><div class="gt-dp">€24,50</div></div>
-                <div class="gt-dish"><div><div class="gt-dn">Côte de Boeuf (2p.)</div><div class="gt-dd">300g dry-aged beef, hand-cut frites, béarnaise sauce</div><div class="gt-da">egg, dairy</div></div><div class="gt-dp">€52,00</div></div>
-                <div class="gt-dish"><div><div class="gt-dn">Risotto ai Funghi</div><div class="gt-dd">Arborio, porcini &amp; chestnut mushrooms, aged Parmesan</div><div class="gt-da">dairy (v)</div></div><div class="gt-dp">€19,50</div></div>
+                <div class="gt-dish"><div><div class="gt-dn">Catch of the Day</div><div class="gt-dd">Pan-fried, seasonal vegetables, beurre blanc</div><div class="gt-da">fish, dairy</div></div><div class="gt-dp">€24,50</div></div>
+                <div class="gt-dish"><div><div class="gt-dn">Côte de Boeuf (2p.)</div><div class="gt-dd">300g dry-aged beef, hand-cut frites, béarnaise</div><div class="gt-da">egg, dairy</div></div><div class="gt-dp">€52,00</div></div>
+                <div class="gt-dish"><div><div class="gt-dn">Risotto ai Funghi</div><div class="gt-dd">Porcini &amp; chestnut mushrooms, aged Parmesan</div><div class="gt-da">dairy (v)</div></div><div class="gt-dp">€19,50</div></div>
                 <div class="gt-dish"><div><div class="gt-dn">Duck Confit</div><div class="gt-dd">Slow-cooked leg, white bean cassoulet, gremolata</div></div><div class="gt-dp">€27,00</div></div>
               </div>
             </div>
@@ -510,7 +513,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
               </div>
             </div>
             <div class="gt-menu-tabs-content" id="gt-tab-wine">
-              <div style="font-family:'Georgia',serif;font-size:.68rem;color:#aaa;font-style:italic;margin-bottom:.9rem;text-align:center">Selection by the bottle · ask for the full wine list</div>
+              <div style="font-size:.65rem;color:#aaa;font-style:italic;margin-bottom:.85rem;text-align:center">Selection by the bottle · ask for the full wine list</div>
               <div class="gt-wine-row"><div><div class="gt-wn">Chablis 1er Cru 'Montée de Tonnerre'</div><div class="gt-wr">Burgundy, FR</div></div><div class="gt-wp">€58</div></div>
               <div class="gt-wine-row"><div><div class="gt-wn">Barolo Serralunga d'Alba</div><div class="gt-wr">Piedmont, IT</div></div><div class="gt-wp">€72</div></div>
               <div class="gt-wine-row"><div><div class="gt-wn">Sancerre Rouge</div><div class="gt-wr">Loire Valley, FR</div></div><div class="gt-wp">€49</div></div>
@@ -519,10 +522,9 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
             <div class="gt-mn">(v) vegetarian · (ve) vegan · Please inform us of any allergies when booking</div>
           </div>
         </div>
-        <!-- RESERVATIONS -->
         <div class="gt-section" id="gt-res">
           <div class="gt-rp">
-            <div class="gt-sh" style="margin-bottom:1.2rem"><div class="gt-sey">Book Your Evening</div><div class="gt-st">Reserve a Table</div><div class="gt-sr"></div></div>
+            <div class="gt-sh" style="margin-bottom:1.1rem"><div class="gt-sey">Book Your Evening</div><div class="gt-st">Reserve a Table</div><div class="gt-sr"></div></div>
             <div class="gt-rg">
               <div class="gt-fc">
                 <div class="gt-form-fields" id="gt-form-fields">
@@ -530,26 +532,14 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
                   <div class="gt-fs">We confirm by email within one hour.</div>
                   <div class="gt-frow">
                     <div class="gt-fg"><label class="gt-fl">Date</label><input class="gt-fi" type="date" id="res-date"/></div>
-                    <div class="gt-fg"><label class="gt-fl">Time</label>
-                      <select class="gt-fi" id="res-time">
-                        <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
-                        <option>18:00</option><option>18:30</option><option selected>19:00</option><option>19:30</option>
-                        <option>20:00</option><option>20:30</option><option>21:00</option>
-                      </select>
-                    </div>
+                    <div class="gt-fg"><label class="gt-fl">Time</label><select class="gt-fi" id="res-time"><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>18:00</option><option>18:30</option><option selected>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option></select></div>
                   </div>
-                  <div class="gt-fg"><label class="gt-fl">Guests</label>
-                    <select class="gt-fi" id="res-guests">
-                      <option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option>
-                      <option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option>
-                      <option value="7">7 guests</option><option value="8">8 guests</option>
-                    </select>
-                  </div>
+                  <div class="gt-fg"><label class="gt-fl">Guests</label><select class="gt-fi" id="res-guests"><option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option><option value="7">7 guests</option><option value="8">8 guests</option></select></div>
                   <div class="gt-fg"><label class="gt-fl">Full Name</label><input class="gt-fi" type="text" id="res-name" placeholder="Your name"/></div>
                   <div class="gt-fg"><label class="gt-fl">Email Address</label><input class="gt-fi" type="email" id="res-email" placeholder="your@email.com"/></div>
-                  <div class="gt-fg"><label class="gt-fl">Special Requests <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(optional)</span></label><input class="gt-fi" type="text" id="res-note" placeholder="Allergies, occasions, seating preference…"/></div>
+                  <div class="gt-fg"><label class="gt-fl">Special Requests <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(optional)</span></label><input class="gt-fi" type="text" id="res-note" placeholder="Allergies, occasions, seating…"/></div>
                   <button class="gt-sub" onclick="submitRes()">Confirm Reservation →</button>
-                  <div style="font-family:'Georgia',serif;font-size:.66rem;color:#bbb;text-align:center;margin-top:.55rem;font-style:italic">No payment required · Free cancellation up to 24h before</div>
+                  <div style="font-size:.64rem;color:#bbb;text-align:center;margin-top:.5rem;font-style:italic">No payment required · Free cancellation up to 24h before</div>
                 </div>
                 <div class="gt-conf" id="gt-conf">
                   <div class="gt-conf-i">✉️</div>
@@ -559,28 +549,9 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
                 </div>
               </div>
               <div>
-                <div class="gt-ic">
-                  <div class="gt-ict">Opening Hours</div>
-                  <div class="gt-ir"><span class="gt-id">Monday</span><span class="gt-icl">Closed</span></div>
-                  <div class="gt-ir"><span class="gt-id">Tuesday – Thursday</span><span class="gt-ih">12:00 – 21:30</span></div>
-                  <div class="gt-ir"><span class="gt-id">Friday – Saturday</span><span class="gt-ih">12:00 – 22:30</span></div>
-                  <div class="gt-ir"><span class="gt-id">Sunday</span><span class="gt-ih">12:00 – 20:30</span></div>
-                </div>
-                <div class="gt-ic">
-                  <div class="gt-ict">Find Us</div>
-                  <div class="gt-mb"><div class="gt-mbt">📍 De Groene Tafel</div><div class="gt-mba">Westerstraat 44, Amsterdam</div></div>
-                  <div style="display:flex;flex-direction:column;gap:.35rem;margin-top:.8rem">
-                    <div style="font-family:'Georgia',serif;font-size:.74rem;color:#666">📞 +31 20 123 45 67</div>
-                    <div style="font-family:'Georgia',serif;font-size:.74rem;color:#666">✉ info@degroeentafel.nl</div>
-                  </div>
-                </div>
-                <div class="gt-ic">
-                  <div class="gt-ict">Good to Know</div>
-                  <div class="gt-good">Reservations strongly recommended on weekends</div>
-                  <div class="gt-good">Dietary requirements accommodated with advance notice</div>
-                  <div class="gt-good">Private dining available for groups of 8–14</div>
-                  <div class="gt-good">Free parking on Westerstraat after 19:00</div>
-                </div>
+                <div class="gt-ic"><div class="gt-ict">Opening Hours</div><div class="gt-ir"><span class="gt-id">Monday</span><span class="gt-icl">Closed</span></div><div class="gt-ir"><span class="gt-id">Tue – Thu</span><span class="gt-ih">12:00 – 21:30</span></div><div class="gt-ir"><span class="gt-id">Fri – Sat</span><span class="gt-ih">12:00 – 22:30</span></div><div class="gt-ir"><span class="gt-id">Sunday</span><span class="gt-ih">12:00 – 20:30</span></div></div>
+                <div class="gt-ic"><div class="gt-ict">Find Us</div><div class="gt-mb"><div class="gt-mbt">📍 De Groene Tafel</div><div class="gt-mba">Westerstraat 44, Amsterdam</div></div><div style="display:flex;flex-direction:column;gap:.32rem;margin-top:.75rem"><div style="font-size:.72rem;color:#666">📞 +31 20 123 45 67</div><div style="font-size:.72rem;color:#666">✉ info@degroeentafel.nl</div></div></div>
+                <div class="gt-ic"><div class="gt-ict">Good to Know</div><div class="gt-good">Reservations strongly recommended on weekends</div><div class="gt-good">Dietary requirements accommodated with advance notice</div><div class="gt-good">Private dining for groups of 8–14</div><div class="gt-good">Free parking on Westerstraat after 19:00</div></div>
               </div>
             </div>
           </div>
@@ -588,7 +559,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
         <div class="gt-foot"><div class="gt-fn">De Groene Tafel</div><div class="gt-fc2">© 2026 · Westerstraat 44, Amsterdam</div></div>
       </div>
     </div>
-    <p class="pnote">This is a concept we designed to demonstrate what's possible. Your website will be built entirely around your brand. <button class="lnkb" onclick="goTo('contact','')">Contact us to get started →</button></p>
+    <p class="pnote reveal reveal-delay-2">This is a concept we designed to show what's possible. Your website will be built entirely around your brand. <button class="lnkb" onclick="goTo('contact','')">Contact us to get started →</button></p>
   </div>
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
@@ -596,42 +567,59 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 <!-- ══ CONTACT ══ -->
 <div class="page" id="page-contact">
   <div class="ph">
-    <p class="lbl">✦ Get In Touch</p>
-    <h1>Let's <em style="font-style:italic;color:#F5C842">Talk</em></h1>
-    <p>Tell us about your business and we'll come back to you within 24 hours — completely free.</p>
+    <p class="lbl reveal">✦ Get In Touch</p>
+    <h1 class="reveal reveal-delay-1">Let's <em style="font-style:italic;color:#F5C842">Talk</em></h1>
+    <p class="reveal reveal-delay-2">Tell us about your business and we'll come back to you within 24 hours — completely free.</p>
   </div>
   <div class="cw">
     <div class="cc">
-      <div class="cc-c"><div class="cc-i">📧</div><div class="cc-l">Email us</div><div class="cc-v">hello@glowwebsite.nl</div></div>
-      <div class="cc-c"><div class="cc-i">📞</div><div class="cc-l">Call us</div><div class="cc-v">+31 6 38 06 79 08</div></div>
-      <div class="cc-c"><div class="cc-i">📍</div><div class="cc-l">Based in</div><div class="cc-v">Rotterdam, NL</div></div>
+      <div class="cc-c reveal reveal-delay-1"><div class="cc-i">📧</div><div class="cc-l">Email us</div><div class="cc-v">contact@glowwebsite.com</div></div>
+      <div class="cc-c reveal reveal-delay-2"><div class="cc-i">📞</div><div class="cc-l">Call us</div><div class="cc-v">+31 6 38 06 79 08</div></div>
+      <div class="cc-c reveal reveal-delay-3"><div class="cc-i">📍</div><div class="cc-l">Based in</div><div class="cc-v">Rotterdam, NL</div></div>
     </div>
-    <div class="form">
-      <div class="fr">
-        <div class="fg"><label>First name</label><input type="text" placeholder="Jan"/></div>
-        <div class="fg"><label>Last name</label><input type="text" placeholder="de Vries"/></div>
-      </div>
-      <div class="fg"><label>Business name</label><input type="text" placeholder="Your Restaurant or Shop"/></div>
-      <div class="fg"><label>Email address</label><input type="email" placeholder="you@yourbusiness.nl"/></div>
-      <div class="fg">
-        <label>Type of business</label>
-        <select><option value="" disabled selected>Select your industry…</option><option>Restaurant / Café</option><option>Salon / Spa</option><option>Bakery / Food shop</option><option>Retail / Boutique</option><option>Wellness / Fitness</option><option>Other</option></select>
-      </div>
-      <div class="fg">
-        <label>Which package interests you?</label>
-        <div class="pps" id="plan-pills">
-          <button class="pp" data-plan="starter" onclick="selectPlan(this)"><span class="pp-n">🌱 Starter</span><span class="pp-p">€199 one-time</span></button>
-          <button class="pp" data-plan="professional" onclick="selectPlan(this)"><span class="pp-n">⚡ Professional</span><span class="pp-p">€500 one-time</span></button>
-          <button class="pp" data-plan="premium" onclick="selectPlan(this)"><span class="pp-n">✦ Premium</span><span class="pp-p">€999 one-time</span></button>
-          <button class="pp" data-plan="starter-m" onclick="selectPlan(this)"><span class="pp-n">🌱 Starter (monthly)</span><span class="pp-p">€49/month</span></button>
-          <button class="pp" data-plan="professional-m" onclick="selectPlan(this)"><span class="pp-n">⚡ Professional (monthly)</span><span class="pp-p">€89/month</span></button>
-          <button class="pp" data-plan="premium-m" onclick="selectPlan(this)"><span class="pp-n">✦ Premium (monthly)</span><span class="pp-p">€149/month</span></button>
-          <button class="pp" data-plan="unsure" onclick="selectPlan(this)"><span class="pp-n">🤔 Not sure yet</span><span class="pp-p">We'll help you choose</span></button>
+
+    <!--
+      ══ FORMSPREE SETUP (one-time, takes 2 minutes) ══
+      1. Go to https://formspree.io and sign up free
+      2. Create a new form — set delivery email to: contact@glowwebsite.com
+      3. Copy your Form ID (e.g. xrgvkpqz)
+      4. Replace YOUR_FORM_ID below with that ID
+      5. Save the file — done. All form submissions will arrive in your inbox.
+    -->
+    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" onsubmit="handleSubmit(event)">
+      <div class="form-wrap reveal reveal-delay-1">
+        <div class="fr">
+          <div class="fg"><label>First name</label><input type="text" name="first_name" placeholder="Jan" required/></div>
+          <div class="fg"><label>Last name</label><input type="text" name="last_name" placeholder="de Vries" required/></div>
         </div>
+        <div class="fg"><label>Business name</label><input type="text" name="business_name" placeholder="Your Restaurant or Shop" required/></div>
+        <div class="fg"><label>Email address</label><input type="email" name="email" placeholder="you@yourbusiness.nl" required/></div>
+        <div class="fg">
+          <label>Type of business</label>
+          <select name="business_type"><option value="" disabled selected>Select your industry…</option><option>Restaurant / Café</option><option>Salon / Spa</option><option>Bakery / Food shop</option><option>Retail / Boutique</option><option>Wellness / Fitness</option><option>Other</option></select>
+        </div>
+        <div class="fg">
+          <label>Which package interests you?</label>
+          <input type="hidden" name="selected_package" id="selected-package-input" value=""/>
+          <div class="pps">
+            <button type="button" class="pp" data-plan="Starter (€199 one-time)" onclick="selectPlan(this)"><span class="pp-n">🌱 Starter</span><span class="pp-p">€199 one-time</span></button>
+            <button type="button" class="pp" data-plan="Professional (€500 one-time)" onclick="selectPlan(this)"><span class="pp-n">⚡ Professional</span><span class="pp-p">€500 one-time</span></button>
+            <button type="button" class="pp" data-plan="Premium (€999 one-time)" onclick="selectPlan(this)"><span class="pp-n">✦ Premium</span><span class="pp-p">€999 one-time</span></button>
+            <button type="button" class="pp" data-plan="Starter Monthly (€49/mo)" onclick="selectPlan(this)"><span class="pp-n">🌱 Starter (monthly)</span><span class="pp-p">€49/month</span></button>
+            <button type="button" class="pp" data-plan="Professional Monthly (€89/mo)" onclick="selectPlan(this)"><span class="pp-n">⚡ Professional (monthly)</span><span class="pp-p">€89/month</span></button>
+            <button type="button" class="pp" data-plan="Premium Monthly (€149/mo)" onclick="selectPlan(this)"><span class="pp-n">✦ Premium (monthly)</span><span class="pp-p">€149/month</span></button>
+            <button type="button" class="pp" data-plan="Not sure yet" onclick="selectPlan(this)"><span class="pp-n">🤔 Not sure yet</span><span class="pp-p">We'll help you choose</span></button>
+          </div>
+        </div>
+        <div class="fg"><label>Tell us about your business &amp; goals</label><textarea name="message" rows="5" placeholder="What does your business do? What would you love your website to achieve?"></textarea></div>
+        <button type="submit" class="bp fsub">Send Message ✦</button>
       </div>
-      <div class="fg"><label>Tell us about your business &amp; goals</label><textarea rows="5" placeholder="What does your business do? What would you love your website to achieve?"></textarea></div>
-      <button class="bp fsub" onclick="showToast(); sendMessage()">Send Message ✦</button>
-    </div>
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">✦</div>
+        <div class="form-success-title">Message Received</div>
+        <div class="form-success-sub">Thank you for reaching out.<br/>We'll come back to you within 24 hours.</div>
+      </div>
+    </form>
   </div>
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
@@ -639,110 +627,149 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 <script>
 // ── NAVIGATION ──
 function goTo(page, plan) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
-  document.getElementById('page-' + page).classList.add('active');
-  const nb = document.getElementById('nav-' + page);
+  var current = document.querySelector('.page.active');
+  if (current) { current.classList.remove('fade-in'); current.style.display = 'none'; current.classList.remove('active'); }
+  document.querySelectorAll('.nb').forEach(function(b){ b.classList.remove('on'); });
+  var next = document.getElementById('page-' + page);
+  next.style.display = 'block';
+  next.classList.add('active');
+  var nb = document.getElementById('nav-' + page);
   if (nb) nb.classList.add('on');
-  window.scrollTo({top:0});
-  if (plan !== undefined && plan !== '') {
-    document.querySelectorAll('.pp').forEach(p => p.classList.remove('sel'));
-    const pill = document.querySelector('.pp[data-plan="' + plan + '"]');
-    if (pill) pill.classList.add('sel');
+  window.scrollTo({top:0,behavior:'instant'});
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      next.classList.add('fade-in');
+      initReveal();
+      if (page === 'home') triggerHeroAnimation();
+    });
+  });
+  if (plan && plan !== '') {
+    document.querySelectorAll('.pp').forEach(function(p){ p.classList.remove('sel'); });
+    var pill = document.querySelector('.pp[data-plan*="' + planKeyMap(plan) + '"]');
+    if (pill) { pill.classList.add('sel'); document.getElementById('selected-package-input').value = pill.getAttribute('data-plan'); }
   }
+}
+function planKeyMap(id) {
+  var m = {starter:'Starter',professional:'Professional',premium:'Premium','starter-m':'Starter Monthly','professional-m':'Professional Monthly','premium-m':'Premium Monthly'};
+  return m[id] || id;
+}
+
+// ── HERO ANIMATION ──
+function triggerHeroAnimation() {
+  var wm   = document.getElementById('hero-wordmark');
+  var title = document.getElementById('hero-title');
+  var rule  = document.getElementById('hero-rule');
+  var btns  = document.getElementById('hero-btns');
+  [wm, title, rule, btns].forEach(function(el){ el && el.classList.remove('visible'); });
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      wm    && wm.classList.add('visible');
+      title && title.classList.add('visible');
+      rule  && rule.classList.add('visible');
+      btns  && btns.classList.add('visible');
+    });
+  });
+}
+window.addEventListener('load', function(){
+  document.getElementById('page-home').classList.add('fade-in');
+  triggerHeroAnimation();
+  initReveal();
+});
+
+// ── SCROLL REVEAL ──
+function initReveal() {
+  var els = document.querySelectorAll('.page.active .reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  els.forEach(function(el){ obs.observe(el); });
 }
 
 // ── BILLING TOGGLE ──
 var isMonthly = false;
 function toggleBilling() {
   isMonthly = !isMonthly;
-  var tog = document.getElementById('billing-tog');
-  tog.classList.toggle('act', isMonthly);
+  document.getElementById('billing-tog').classList.toggle('act', isMonthly);
   document.getElementById('tog-one').classList.toggle('on', !isMonthly);
   document.getElementById('tog-mon').classList.toggle('on', isMonthly);
   document.getElementById('monthly-badge').classList.toggle('show', isMonthly);
-  document.querySelectorAll('.one-time-price').forEach(el => el.style.display = isMonthly ? 'none' : '');
-  document.querySelectorAll('.monthly-price').forEach(el => el.style.display = isMonthly ? '' : 'none');
-  document.querySelectorAll('.one-time-note').forEach(el => el.style.display = isMonthly ? 'none' : '');
-  document.querySelectorAll('.monthly-note').forEach(el => el.style.display = isMonthly ? '' : 'none');
-  document.querySelectorAll('.o-monthly').forEach(el => el.classList.toggle('show', isMonthly));
-  document.getElementById('not-starter').style.display = isMonthly ? 'none' : '';
-  document.getElementById('not-professional').style.display = isMonthly ? 'none' : '';
+  document.querySelectorAll('.one-time-price').forEach(function(el){ el.style.display = isMonthly?'none':''; });
+  document.querySelectorAll('.monthly-price').forEach(function(el){ el.style.display = isMonthly?'':'none'; });
+  document.querySelectorAll('.one-time-note').forEach(function(el){ el.style.display = isMonthly?'none':''; });
+  document.querySelectorAll('.monthly-note').forEach(function(el){ el.style.display = isMonthly?'':'none'; });
+  document.querySelectorAll('.o-monthly').forEach(function(el){ el.classList.toggle('show', isMonthly); });
+  document.getElementById('not-starter').style.display = isMonthly?'none':'';
+  document.getElementById('not-professional').style.display = isMonthly?'none':'';
 }
 
 // ── PLAN PILLS ──
 function selectPlan(el) {
-  document.querySelectorAll('.pp').forEach(p => p.classList.remove('sel'));
-  el.classList.toggle('sel');
+  document.querySelectorAll('.pp').forEach(function(p){ p.classList.remove('sel'); });
+  el.classList.add('sel');
+  document.getElementById('selected-package-input').value = el.getAttribute('data-plan');
 }
 
-// ── TOAST ──
-function showToast() {
-  var t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3500);
+// ── FORM SUBMISSION ──
+function handleSubmit(e) {
+  e.preventDefault();
+  var form = document.getElementById('contact-form');
+  var data = new FormData(form);
+  fetch(form.action, {method:'POST',body:data,headers:{'Accept':'application/json'}})
+    .then(function(r){
+      if (r.ok) {
+        document.querySelector('.form-wrap').style.display = 'none';
+        document.getElementById('form-success').classList.add('show');
+      } else { alert('Something went wrong. Please email us at contact@glowwebsite.com'); }
+    })
+    .catch(function(){ alert('Could not send. Please email us at contact@glowwebsite.com'); });
 }
 
-// ── DEMO SITE: PAGE NAV ──
+// ── DEMO SITE NAV ──
 function gtPage(p) {
-  document.querySelectorAll('.gt-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.gt-section').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('gt-' + p).classList.add('active');
-  document.querySelectorAll('.gt-nb').forEach(b => b.classList.remove('on'));
-  var map = {home:'Home',menu:'Menu'};
-  document.querySelectorAll('.gt-nb').forEach(b => {
-    if (b.textContent.trim() === (map[p] || '')) b.classList.add('on');
-  });
-  if (p === 'res') resetRes();
+  document.querySelectorAll('.gt-nb').forEach(function(b){ b.classList.remove('on'); });
+  var labels = {home:'Home',menu:'Menu'};
+  document.querySelectorAll('.gt-nb').forEach(function(b){ if(b.textContent.trim()===(labels[p]||'')) b.classList.add('on'); });
+  if (p==='res') resetRes();
 }
 
-// ── DEMO SITE: MENU TABS ──
+// ── DEMO MENU TABS ──
 function gtMenuTab(tab, btn) {
-  document.querySelectorAll('.gt-menu-tabs-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.gt-tab').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.gt-menu-tabs-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.gt-tab').forEach(function(b){ b.classList.remove('on'); });
   document.getElementById('gt-tab-' + tab).classList.add('active');
   btn.classList.add('on');
 }
 
-// ── DEMO SITE: RESERVATION ──
+// ── DEMO RESERVATION ──
 function submitRes() {
   var name = document.getElementById('res-name').value.trim();
   var date = document.getElementById('res-date').value;
   if (!name || !date) { alert('Please fill in your name and a date.'); return; }
-  var time = document.getElementById('res-time').value;
+  var time   = document.getElementById('res-time').value;
   var guests = document.getElementById('res-guests').value;
-  var email = document.getElementById('res-email').value || 'your email address';
-  var g = guests === '1' ? '1 guest' : guests + ' guests';
+  var email  = document.getElementById('res-email').value || 'your email address';
+  var g = guests==='1'?'1 guest':guests+' guests';
   document.getElementById('gt-conf-text').innerHTML =
-    'Thank you, <strong>' + name + '</strong>. We have reserved a table for <strong>' + g + '</strong> on <strong>' + date + '</strong> at <strong>' + time + '</strong>.<br><br>' +
-    'A confirmation has been sent to <strong>' + email + '</strong>. We look forward to welcoming you.';
+    'Thank you, <strong>'+name+'</strong>. We have reserved a table for <strong>'+g+'</strong> on <strong>'+date+'</strong> at <strong>'+time+'</strong>.<br><br>'+
+    'A confirmation has been sent to <strong>'+email+'</strong>. We look forward to welcoming you.';
   document.getElementById('gt-form-fields').classList.add('hidden');
   document.getElementById('gt-conf').classList.add('show');
 }
 function resetRes() {
-  document.getElementById('res-name').value = '';
-  document.getElementById('res-date').value = '';
-  document.getElementById('res-email').value = '';
-  document.getElementById('res-note').value = '';
-  document.getElementById('res-time').value = '19:00';
-  document.getElementById('res-guests').value = '2';
+  ['res-name','res-date','res-email','res-note'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('res-time').value='19:00';
+  document.getElementById('res-guests').value='2';
   document.getElementById('gt-form-fields').classList.remove('hidden');
   document.getElementById('gt-conf').classList.remove('show');
 }
-
-async function sendMessage() {
-  const message = document.getElementById("message").value;
-
-  await fetch("/webhook", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message })
-  });
-
-  alert("Message sent ✅");
-}
-  
 </script>
 </body>
 </html>
