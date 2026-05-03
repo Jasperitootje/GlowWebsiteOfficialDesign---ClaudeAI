@@ -11,7 +11,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
+ 
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,200,66,.1)}
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:#F5C842;cursor:pointer;letter-spacing:-.5px;transition:opacity .2s}
@@ -29,12 +29,12 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   .nav-ul{gap:.15rem}
   .nb{font-size:.74rem;padding:.38rem .65rem}
 }
-
+ 
 /* ── PAGES ── */
 .page{display:none;opacity:0;transition:opacity .45s ease}
 .page.active{display:block}
 .page.fade-in{opacity:1}
-
+ 
 /* ── BUTTONS ── */
 .bp{background:#F5C842;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;border:none;padding:.82rem 1.7rem;border-radius:100px;cursor:pointer;transition:background .22s,transform .22s,box-shadow .22s;-webkit-appearance:none}
 .bp:hover{background:#C9A020;transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,200,66,.22)}
@@ -42,14 +42,14 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .bo{background:transparent;color:#fff;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;border:1px solid rgba(255,255,255,.22);padding:.82rem 1.7rem;border-radius:100px;cursor:pointer;transition:border-color .22s,color .22s,transform .22s;-webkit-appearance:none}
 .bo:hover{border-color:#F5C842;color:#F5C842;transform:translateY(-2px)}
 .bo:active{transform:translateY(0)}
-
+ 
 /* ── SCROLL REVEAL ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.1s}
 .reveal-delay-2{transition-delay:.2s}
 .reveal-delay-3{transition-delay:.32s}
-
+ 
 /* ── HERO ── */
 .hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 4rem;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(245,200,66,.065),transparent 70%);pointer-events:none}
@@ -68,7 +68,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   .hbtns{flex-direction:column;align-items:center}
   .hbtns .bp,.hbtns .bo{width:100%;max-width:280px;text-align:center}
 }
-
+ 
 /* ── ABOUT ── */
 .about{padding:5rem 2rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 @media(max-width:760px){.about{grid-template-columns:1fr;gap:2.5rem;padding:3.5rem 1.2rem}}
@@ -84,10 +84,10 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .vis:hover{border-color:rgba(245,200,66,.25)}
 .vis-glow{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(245,200,66,.15),transparent 70%);border-radius:50%}
 @media(max-width:760px){.vis{display:none}}
-
+ 
 /* ── DIVIDER ── */
 .divider{height:1px;background:linear-gradient(to right,transparent,rgba(245,200,66,.18),transparent);max-width:700px;margin:0 auto}
-
+ 
 /* ── STEPS ── */
 .steps{padding:5rem 2rem;max-width:1000px;margin:0 auto;text-align:center}
 .steps h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.6rem);margin-bottom:.7rem}
@@ -99,7 +99,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .step-n{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:rgba(245,200,66,.15);line-height:1;margin-bottom:.75rem}
 .step h3{font-size:.98rem;font-weight:600;margin-bottom:.42rem}
 .step p{font-size:.83rem;color:#888;line-height:1.68}
-
+ 
 /* ── PAGE HEADER ── */
 .ph{padding:4rem 2rem 2.8rem;text-align:center;position:relative;overflow:hidden}
 .ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(245,200,66,.05),transparent 70%)}
@@ -107,7 +107,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .ph h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3.6rem);font-weight:900;line-height:1.04;margin-bottom:.75rem}
 .ph p{color:#888;font-size:.95rem;max-width:460px;margin:0 auto}
 @media(max-width:600px){.ph{padding:3.5rem 1.2rem 2.2rem}}
-
+ 
 /* ── BILLING TOGGLE ── */
 .billing-toggle{display:flex;align-items:center;gap:.65rem;justify-content:center;margin-top:1.3rem;flex-wrap:wrap}
 .billing-toggle span{font-size:.8rem;color:#666}
@@ -118,7 +118,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .tog.act .tog-thumb{left:22px;background:#0A0A0A}
 .monthly-badge{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.22);color:#F5C842;font-size:.64rem;padding:.16rem .55rem;border-radius:100px;display:none}
 .monthly-badge.show{display:inline}
-
+ 
 /* ── OFFERS ── */
 .offers-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;max-width:1020px;margin:0 auto;padding:1.6rem 2rem 5.5rem}
 @media(max-width:820px){.offers-g{grid-template-columns:1fr;max-width:480px;padding:1.4rem 1.2rem 4rem}}
@@ -147,7 +147,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .o-monthly li{font-size:.72rem;color:#aaa;display:flex;align-items:center;gap:.36rem;margin-bottom:.2rem}
 .o-monthly li::before{content:'✓';color:#F5C842;font-size:.6rem}
 .o-not-block{display:block}.o-not-block.hidden{display:none}
-
+ 
 /* ── PORTFOLIO ── */
 .pw{max-width:1020px;margin:0 auto;padding:0 2rem 5.5rem}
 @media(max-width:600px){.pw{padding:0 1.2rem 4rem}}
@@ -162,7 +162,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .burl{flex:1;background:#1a1a1a;border-radius:5px;padding:.24rem .82rem;font-size:.68rem;color:#555;font-family:monospace}
 .pnote{text-align:center;color:#888;font-size:.78rem;margin-top:1.1rem}
 .lnkb{background:none;border:none;color:#F5C842;font-size:.78rem;cursor:pointer;text-decoration:underline;font-family:'DM Sans',sans-serif}
-
+ 
 /* ── CONTACT ── */
 .cw{max-width:640px;margin:0 auto;padding:0 2rem 5.5rem}
 @media(max-width:600px){.cw{padding:0 1.2rem 4rem}}
@@ -195,17 +195,17 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 .form-success-icon{font-size:2.2rem;margin-bottom:.9rem}
 .form-success-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;margin-bottom:.55rem}
 .form-success-sub{color:#888;font-size:.88rem;line-height:1.65}
-
+ 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:1.4rem;right:1.4rem;background:#F5C842;color:#0A0A0A;font-weight:600;font-size:.84rem;padding:.82rem 1.4rem;border-radius:10px;z-index:999;transition:all .45s cubic-bezier(.34,1.56,.64,1);transform:translateY(100px);opacity:0;max-width:calc(100vw - 2.8rem)}
 .toast.show{transform:translateY(0);opacity:1}
-
+ 
 /* ── FOOTER ── */
 .foot{border-top:1px solid rgba(255,255,255,.06);padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
 @media(max-width:500px){.foot{flex-direction:column;text-align:center;padding:1.5rem 1.2rem}}
 .foot-logo{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;color:#F5C842}
 .foot-txt{font-size:.76rem;color:#888}
-
+ 
 /* ── DE GROENE TAFEL ── */
 .gt{font-family:'Georgia',serif;background:#FAF8F3;color:#1a1a1a}
 .gt *{box-sizing:border-box;margin:0;padding:0}
@@ -298,7 +298,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
 </style>
 </head>
 <body>
-
+ 
 <nav class="nav">
   <div class="nav-logo" onclick="goTo('home','')">Glow<span>Website</span></div>
   <ul class="nav-ul">
@@ -308,9 +308,9 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
     <li><button class="nb cta" id="nav-contact" onclick="goTo('contact','')">Contact Us</button></li>
   </ul>
 </nav>
-
+ 
 <div class="toast" id="toast">✦ Message sent! We'll be in touch soon.</div>
-
+ 
 <!-- ══ HOME ══ -->
 <div class="page active" id="page-home">
   <section class="hero">
@@ -323,7 +323,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
       <button class="bo" onclick="goTo('portfolio','')">See Our Work</button>
     </div>
   </section>
-
+ 
   <section class="about">
     <div>
       <p class="lbl reveal">✦ Who We Are</p>
@@ -337,9 +337,9 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
     </div>
     <div class="vis reveal reveal-delay-2"><div class="vis-glow"></div><span style="position:relative;z-index:1;font-size:5rem">✦</span></div>
   </section>
-
+ 
   <div class="divider"></div>
-
+ 
   <section class="steps">
     <p class="lbl reveal">✦ How It Works</p>
     <h2 class="reveal reveal-delay-1">From idea to online in 3 steps</h2>
@@ -351,10 +351,10 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
     </div>
     <button class="bp reveal" onclick="goTo('contact','')">Start Today — It's Free to Ask</button>
   </section>
-
+ 
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
-
+ 
 <!-- ══ OFFERS ══ -->
 <div class="page" id="page-offers">
   <div class="ph">
@@ -429,7 +429,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   </div>
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
-
+ 
 <!-- ══ PORTFOLIO ══ -->
 <div class="page" id="page-portfolio">
   <div class="ph">
@@ -563,7 +563,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   </div>
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
-
+ 
 <!-- ══ CONTACT ══ -->
 <div class="page" id="page-contact">
   <div class="ph">
@@ -577,7 +577,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
       <div class="cc-c reveal reveal-delay-2"><div class="cc-i">📞</div><div class="cc-l">Call us</div><div class="cc-v">+31 6 38 06 79 08</div></div>
       <div class="cc-c reveal reveal-delay-3"><div class="cc-i">📍</div><div class="cc-l">Based in</div><div class="cc-v">Rotterdam, NL</div></div>
     </div>
-
+ 
     <!--
       ══ FORMSPREE SETUP (one-time, takes 2 minutes) ══
       1. Go to https://formspree.io and sign up free
@@ -623,7 +623,7 @@ body{background:#0A0A0A;font-family:'DM Sans',sans-serif;color:#fff;overflow-x:h
   </div>
   <div class="foot"><div class="foot-logo">GlowWebsite</div><div class="foot-txt">© 2026 GlowWebsite · Your Business in the Spotlight</div></div>
 </div>
-
+ 
 <script>
 // ── NAVIGATION ──
 function goTo(page, plan) {
@@ -653,7 +653,7 @@ function planKeyMap(id) {
   var m = {starter:'Starter',professional:'Professional',premium:'Premium','starter-m':'Starter Monthly','professional-m':'Professional Monthly','premium-m':'Premium Monthly'};
   return m[id] || id;
 }
-
+ 
 // ── HERO ANIMATION ──
 function triggerHeroAnimation() {
   var wm   = document.getElementById('hero-wordmark');
@@ -675,7 +675,7 @@ window.addEventListener('load', function(){
   triggerHeroAnimation();
   initReveal();
 });
-
+ 
 // ── SCROLL REVEAL ──
 function initReveal() {
   var els = document.querySelectorAll('.page.active .reveal');
@@ -690,7 +690,7 @@ function initReveal() {
   }, {threshold:0.12});
   els.forEach(function(el){ obs.observe(el); });
 }
-
+ 
 // ── BILLING TOGGLE ──
 var isMonthly = false;
 function toggleBilling() {
@@ -707,14 +707,14 @@ function toggleBilling() {
   document.getElementById('not-starter').style.display = isMonthly?'none':'';
   document.getElementById('not-professional').style.display = isMonthly?'none':'';
 }
-
+ 
 // ── PLAN PILLS ──
 function selectPlan(el) {
   document.querySelectorAll('.pp').forEach(function(p){ p.classList.remove('sel'); });
   el.classList.add('sel');
   document.getElementById('selected-package-input').value = el.getAttribute('data-plan');
 }
-
+ 
 // ── FORM SUBMISSION ──
 function handleSubmit(e) {
   e.preventDefault();
@@ -729,7 +729,7 @@ function handleSubmit(e) {
     })
     .catch(function(){ alert('Could not send. Please email us at contact@glowwebsite.com'); });
 }
-
+ 
 // ── DEMO SITE NAV ──
 function gtPage(p) {
   document.querySelectorAll('.gt-section').forEach(function(s){ s.classList.remove('active'); });
@@ -739,7 +739,7 @@ function gtPage(p) {
   document.querySelectorAll('.gt-nb').forEach(function(b){ if(b.textContent.trim()===(labels[p]||'')) b.classList.add('on'); });
   if (p==='res') resetRes();
 }
-
+ 
 // ── DEMO MENU TABS ──
 function gtMenuTab(tab, btn) {
   document.querySelectorAll('.gt-menu-tabs-content').forEach(function(t){ t.classList.remove('active'); });
@@ -747,7 +747,7 @@ function gtMenuTab(tab, btn) {
   document.getElementById('gt-tab-' + tab).classList.add('active');
   btn.classList.add('on');
 }
-
+ 
 // ── DEMO RESERVATION ──
 function submitRes() {
   var name = document.getElementById('res-name').value.trim();
@@ -773,3 +773,4 @@ function resetRes() {
 </script>
 </body>
 </html>
+ 
